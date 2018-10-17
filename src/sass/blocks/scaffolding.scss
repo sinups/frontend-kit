@@ -1,0 +1,23 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: $screen-sm;
+  margin: 0;
+  font-family: $font-family;
+  color: $font-main-color;
+}
+
+input, textarea, keygen, select, button {
+  font-family: $font-family;
+}
+
+p {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1em;
+}

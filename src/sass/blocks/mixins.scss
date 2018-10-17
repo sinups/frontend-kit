@@ -1,0 +1,21 @@
+@mixin clearfix() {
+  &::after {
+    content: "";
+
+    display: table;
+    clear: both;
+  }
+}
+
+//@mixin container() {
+////  width: 280px;
+//  margin: 0 auto;
+//
+//  @media (min-width: $screen-md) {
+////    width: 620px;
+//  }
+//
+//  @media (min-width: $screen-lg) {
+////    width: 940px;
+//  }
+//}

@@ -1,0 +1,22 @@
+# Файл с настройками для редактора.
+#
+# В редакторах от JetBrains, BBEdit, Coda или SourceLair
+# этот файл уже поддерживается и не нужно производить никаких дополнительных
+# действий.
+#
+# Для других редакторов - зайти
+# на http://editorconfig.org, в разделе «Download a Plugin»
+# скачать дополнение для редактора.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
