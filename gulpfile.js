@@ -184,7 +184,7 @@ gulp.task('serve', gulp.series('build', function() {
 
   gulp.watch(                                               // следим за HTML
     [
-      dirs.source + '/*.html',                              // в папке с исходниками
+      dirs.source + '/**/*.html',                              // в папке с исходниками
     ],
     gulp.series('html', reloader)                           // при изменении файлов запускаем пересборку HTML и обновление в браузере
   );
