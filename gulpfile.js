@@ -28,6 +28,7 @@ const svgmin = require('gulp-svgmin');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-cleancss');
+const include = require('gulp-file-include'); //include
 
 // ЗАДАЧА: Компиляция препроцессора
 gulp.task('sass', function(){
@@ -55,6 +56,7 @@ gulp.task('sass', function(){
 // ЗАДАЧА: Сборка HTML
 gulp.task('html', function() {
   return gulp.src(dirs.source + '/*.html')                  // какие файлы обрабатывать (путь из константы, маска имени)
+    .pipe(include())
     .pipe(plumber({ errorHandler: onError }))
     .pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))         // убираем комментарии <!--DEV ... -->
     .pipe(gulp.dest(dirs.build));                           // записываем файлы (путь из константы)

@@ -30,7 +30,8 @@
     "gulp-svgmin": "^1.2.3",
     "gulp-svgstore": "^6.1.0",
     "gulp-uglify": "^2.0.0",
-    "imagemin-pngquant": "^5.0.0"
+    "imagemin-pngquant": "^5.0.0",
+    "gulp-file-include": "^2.0.1"
   },
   "scripts": {
     "test": "editorconfig-cli",
@@ -45,5 +46,6 @@
       "source": "./src",
       "build": "./build"
     }
-  }
+  },
+  "dependencies": {}
 }
