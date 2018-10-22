@@ -33,6 +33,7 @@ const include = require('gulp-file-include'); //include
 // ЗАДАЧА: Компиляция препроцессора
 gulp.task('sass', function(){
   return gulp.src(dirs.source + '/sass/style.scss')         // какой файл компилировать (путь из константы)
+    .pipe(include())
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sourcemaps.init())                                // инициируем карту кода
     .pipe(sass())                                           // компилируем
@@ -106,9 +107,15 @@ gulp.task('svgstore', function (callback) {
         }
       }))
       .pipe(svgstore({ inlineSvg: true }))
-      .pipe(cheerio(function ($) {
-        $('svg').attr('style',  'display:none');             // дописываем получающемуся SVG-спрайту инлайновое сокрытие
-      }))
+
+      .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+              
+            },
+            parserOptions: {xmlMode: true}
+        }))
+
       .pipe(rename('sprite-svg.svg'))
       .pipe(gulp.dest(dirs.source + '/img'));
   }
@@ -132,6 +139,7 @@ gulp.task('js', function () {
       // список обрабатываемых файлов в нужной последовательности (Запятая после каждого файла, в конце запятая не нужна)
       dirs.source + '/js/script.js'
     ])
+    .pipe(include()) //Прогоним через include-file
     .pipe(plumber({ errorHandler: onError }))
     .pipe(concat('script.js'))
     .pipe(gulp.dest(dirs.build + '/js'))
@@ -205,7 +213,7 @@ gulp.task('serve', gulp.series('build', function() {
   );
 
   gulp.watch(                                               // следим за JS
-    dirs.source + '/js/*.js',
+    dirs.source + '/js/**/*.js',
     gulp.series('js', reloader)                            // при изменении пересобираем и обновляем в браузере
   );
 
