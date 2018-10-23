@@ -1,7 +1,5 @@
-![version](https://img.shields.io/badge/version-1.1.2-red.svg?style=flat-square "Version")
+![version](https://img.shields.io/badge/version-1.0-red.svg?style=flat-square "Version")
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/)
-
-[![GitHub issue/pull request author](https://img.shields.io/github/issues/detail/u/badges/shields/979.svg?style=for-the-badge)](https://www.instagram.com/webtheory/)
 
 
 ## Стартовый проект frontend-kit :fire:
