@@ -30,6 +30,7 @@ const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-cleancss');
 const include = require('gulp-file-include'); //include
 const htmlbeautify = require('gulp-html-beautify');
+const spritesmith = require('gulp.spritesmith');
 
 // ЗАДАЧА: Компиляция препроцессора
 gulp.task('sass', function(){
@@ -127,6 +128,46 @@ gulp.task('svgstore', function (callback) {
   }
 });
 
+// ЗАДАЧА: сшивка PNG-спрайта
+gulp.task('png:sprite', function () {
+  let fileName = 'sprite-' + Math.random().toString().replace(/[^0-9]/g, '') + '.png'; // формируем случайное и уникальное имя файла
+  let spriteData = gulp.src('src/img/png-sprite/*.png')     // получаем список файлов для создания спрайта
+    .pipe(plumber({ errorHandler: onError }))               // не останавливаем автоматику при ошибках
+    .pipe(spritesmith({                                     // шьем спрайт:
+      imgName: fileName,                                    //   - имя файла (сформировано чуть выше)
+      cssName: 'sprite.scss',                               //   - имя генерируемого стилевого файла (там примеси для комфортного использования частей спрайта)
+      padding: 4,                                           //   - отступ между составными частями спрайта
+      imgPath: '../img/' + fileName                         //   - путь к файлу картинки спрайта (используеися в генерируемом стилевом файле спрайта)
+    }));
+  let imgStream = spriteData.img                            // оптимизируем и запишем картинку спрайта
+    .pipe(buffer())
+    .pipe(imagemin())
+    .pipe(gulp.dest('build/img'));
+  let cssStream = spriteData.css                            // запишем генерируемый стилевой файл спрайта
+    .pipe(gulp.dest(dirs.source + '/scss/'));
+  return merge(imgStream, cssStream);
+});
+
+// ЗАДАЧА: сшивка PNG-спрайта
+gulp.task('png:sprite', function () {
+  let fileName = 'sprite-' + Math.random().toString().replace(/[^0-9]/g, '') + '.png';
+  let spriteData = gulp.src('src/img/png-sprite/*.png')
+  .pipe(plumber({ errorHandler: onError }))
+  .pipe(spritesmith({
+    imgName: fileName,
+    cssName: 'sprite.scss',
+    cssFormat: 'less',
+    padding: 4,
+    imgPath: '../img/' + fileName
+  }));
+  let imgStream = spriteData.img
+  .pipe(buffer())
+  .pipe(imagemin())
+  .pipe(gulp.dest('build/img'));
+  let cssStream = spriteData.css
+  .pipe(gulp.dest(dirs.source + '/less/'));
+  return merge(imgStream, cssStream);
+});
 
 // ЗАДАЧА: Очистка папки сборки
 gulp.task('clean', function () {
@@ -176,9 +217,11 @@ gulp.task('copy-css', function() {
 gulp.task('build', gulp.series(                             // последовательно:
   'clean',                                                  // последовательно: очистку папки сборки
   'svgstore',
+  'png:sprite',
   gulp.parallel('sass', 'img', 'js', 'copy'),
   'html'                                                    // последовательно: сборку разметки
 ));
+
 
 
 // ЗАДАЧА: Локальный сервер, слежение
@@ -209,6 +252,11 @@ gulp.task('serve', gulp.series('build', function() {
   gulp.watch(                                               // следим за SVG
     dirs.source + '/img/svg-sprite/*.svg',
     gulp.series('svgstore', 'html', reloader)
+  );
+
+  gulp.watch(
+    dirs.source + '/img/png-sprite/*.png',
+    gulp.series('png:sprite', 'sass')
   );
 
   gulp.watch(                                               // следим за изображениями

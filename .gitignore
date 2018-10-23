@@ -11,3 +11,4 @@ Thumbs.db
 build/
 bower_components
 package-lock.json
+.publish/
