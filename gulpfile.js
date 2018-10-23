@@ -1,9 +1,9 @@
 'use strict';
+const dirs = {
+  source: 'src',  // папка с исходниками (путь от корня проекта)
+  build: 'build', // папка с результатом работы (путь от корня проекта)
+};
 
-// Читаем содержимое package.json в константу
-const pjson = require('./package.json');
-// Получим из константы другую константу с адресами папок сборки и исходников
-const dirs = pjson.config.directories;
 
 // Определим необходимые инструменты
 const gulp = require('gulp');
@@ -29,6 +29,7 @@ const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-cleancss');
 const include = require('gulp-file-include'); //include
+const htmlbeautify = require('gulp-html-beautify');
 
 // ЗАДАЧА: Компиляция препроцессора
 gulp.task('sass', function(){
@@ -58,6 +59,7 @@ gulp.task('sass', function(){
 gulp.task('html', function() {
   return gulp.src(dirs.source + '/*.html')                  // какие файлы обрабатывать (путь из константы, маска имени)
     .pipe(include())
+    .pipe(htmlbeautify())
     .pipe(plumber({ errorHandler: onError }))
     .pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))         // убираем комментарии <!--DEV ... -->
     .pipe(gulp.dest(dirs.build));                           // записываем файлы (путь из константы)
@@ -125,6 +127,7 @@ gulp.task('svgstore', function (callback) {
   }
 });
 
+
 // ЗАДАЧА: Очистка папки сборки
 gulp.task('clean', function () {
   return del([                                              // стираем
@@ -176,6 +179,7 @@ gulp.task('build', gulp.series(                             // последов�
   gulp.parallel('sass', 'img', 'js', 'copy'),
   'html'                                                    // последовательно: сборку разметки
 ));
+
 
 // ЗАДАЧА: Локальный сервер, слежение
 gulp.task('serve', gulp.series('build', function() {
