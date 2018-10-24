@@ -148,26 +148,6 @@ gulp.task('png:sprite', function () {
   return merge(imgStream, cssStream);
 });
 
-// ЗАДАЧА: сшивка PNG-спрайта
-gulp.task('png:sprite', function () {
-  let fileName = 'sprite-' + Math.random().toString().replace(/[^0-9]/g, '') + '.png';
-  let spriteData = gulp.src('src/img/png-sprite/*.png')
-  .pipe(plumber({ errorHandler: onError }))
-  .pipe(spritesmith({
-    imgName: fileName,
-    cssName: 'sprite.scss',
-    cssFormat: 'less',
-    padding: 4,
-    imgPath: '../img/' + fileName
-  }));
-  let imgStream = spriteData.img
-  .pipe(buffer())
-  .pipe(imagemin())
-  .pipe(gulp.dest('build/img'));
-  let cssStream = spriteData.css
-  .pipe(gulp.dest(dirs.source + '/less/'));
-  return merge(imgStream, cssStream);
-});
 
 // ЗАДАЧА: Очистка папки сборки
 gulp.task('clean', function () {
@@ -217,7 +197,7 @@ gulp.task('copy-css', function() {
 gulp.task('build', gulp.series(                             // последовательно:
   'clean',                                                  // последовательно: очистку папки сборки
   'svgstore',
-  'png:sprite',
+  
   gulp.parallel('sass', 'img', 'js', 'copy'),
   'html'                                                    // последовательно: сборку разметки
 ));
