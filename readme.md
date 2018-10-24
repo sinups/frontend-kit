@@ -18,7 +18,7 @@
 
 Остановка: <kbd>Ctrl + C</kbd>
 
-## Bывод svg 
+## Bывод svg sprite
 
 `<svg class="custom-class" width="14px" height="14px"><use xlink:href="img/sprite-svg.svg#img_name"></use></svg>`
 
@@ -31,5 +31,29 @@
 `<svg  width="28"  height="28"  class="custom_class"><use  xlink:href="#calendar"></use></svg>`
 
 
+## Bывод png sprite
 
+Предоставленные миксины предназначены для использования с переменными
 
+`
+.icon-imagename {
+  @include sprite($image_name);
+}`
+
+Пример использования в HTML:
+
+`display: block` sprite:
+
+`<div class="icon-imagename"></div>`
+
+Изменитe `display` ( `display: inline-block;`), мы предлагаем использовать общий css класс:
+
+CSS
+
+`.icon {
+  display: inline-block;
+}`
+
+HTML
+
+`<i class="icon icon-home"></i>`
