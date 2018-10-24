@@ -37,7 +37,9 @@
     "gulp-svgstore": "^6.1.0",
     "gulp-uglify": "^2.0.0",
     "gulp.spritesmith": "^6.3.0",
-    "imagemin-pngquant": "^5.0.0"
+    "imagemin-pngquant": "^5.0.0",
+    "merge-stream": "^1.0.1",
+    "vinyl-buffer": "^1.0.1"
   },
   "dependencies": {}
 }
