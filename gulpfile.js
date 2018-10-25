@@ -181,13 +181,7 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('build' + '/fonts'));
 });
 
-// ЗАДАЧА: сборка полифиллов
-// gulp.task('copy-js', function() {
-//   return gulp.src([
-//     // список обрабатываемых файлов в нужной последовательности (Запятая после каждого файла, в конце запятая не нужна)
-//     ])
-//     .pipe(gulp.dest('build' + '/js'));
-// });
+
 
 // ЗАДАЧА: сборка сss-библиотек
 gulp.task('copy-css', function() {
@@ -199,7 +193,7 @@ gulp.task('copy-css', function() {
 gulp.task('build', gulp.series(                             // последовательно:
   'clean',                                                  // последовательно: очистку папки сборки
   'svgstore',
-  
+  'png:sprite',
   gulp.parallel('sass', 'img', 'js', 'copy'),
   'html'                                                    // последовательно: сборку разметки
 ));

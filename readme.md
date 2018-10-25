@@ -1,5 +1,5 @@
-![version](https://img.shields.io/badge/version-1.0-red.svg?style=flat-square "Version")
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/)
+![version](https://img.shields.io/badge/version-1.0-red.svg?style=flat-square "Version Frontend-kit")
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/sinups/)
 
 
 ## Стартовый проект frontend-kit :fire:
