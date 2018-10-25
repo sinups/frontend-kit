@@ -28,7 +28,7 @@
 
 И выводить на странице таким образом:
 
-`<svg  width="28"  height="28"  class="custom_class"><use  xlink:href="#calendar"></use></svg>`
+`<svg  width="28"  height="28"  class="custom_class"><use  xlink:href="#image_name"></use></svg>`
 
 
 ## Bывод png sprite
