@@ -116,7 +116,7 @@ gulp.task('svgstore', function (callback) {
       .pipe(cheerio({
             run: function ($) {
                 $('[fill]').removeAttr('fill');
-              
+
             },
             parserOptions: {xmlMode: true}
         }))
@@ -181,13 +181,6 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('build' + '/fonts'));
 });
 
-// ЗАДАЧА: Сборка PHP
-gulp.task('php', function() {
-  return gulp.src(dirs.source + '/**/**/**/*.php')                  // какие файлы обрабатывать (путь из константы, маска имени)
-  .pipe(plumber({ errorHandler: onError }))
-    .pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))         // убираем комментарии <!--DEV ... -->
-    .pipe(gulp.dest(dirs.build));                // записываем файлы (путь из константы)
-  });
 
 
 
@@ -205,8 +198,7 @@ gulp.task('build', gulp.series(                             // последов�
   'svgstore',
   'png:sprite',
   gulp.parallel('sass', 'img', 'js', 'copy'),
-  'html',
-  'php'
+  'html'
                                                       // последовательно: сборку разметки
 ));
 
@@ -232,13 +224,6 @@ gulp.task('serve', gulp.series('build', function() {
     gulp.series('html', reloader)                           // при изменении файлов запускаем пересборку HTML и обновление в браузере
   );
 
-  gulp.watch(                                               // следим за HTML
-    [
-      dirs.source + '**/**/**/**/*.php',                              // в папке с исходниками
-      dirs.source + '/modules/*.php',                     // и в папке с мелкими вставляющимся файлами
-      ],
-    gulp.series('php', reloader)                           // при изменении файлов запускаем пересборку HTML и обновление в браузере
-    );
 
   gulp.watch(                                               // следим
     dirs.source + '/sass/**/*.scss',
