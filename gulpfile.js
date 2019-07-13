@@ -42,7 +42,7 @@ gulp.task('sass', function(){
     .pipe(sourcemaps.init())                                // инициируем карту кода
     .pipe(sass())                                           // компилируем
     .pipe(postcss([                                         // делаем постпроцессинг
-        autoprefixer({ browsers: [
+        autoprefixer({ overrideBrowserslist: [
           'last 2 version',
           'last 7 Chrome versions',
           'last 10 Opera versions',
