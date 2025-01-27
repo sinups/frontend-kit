@@ -1,21 +1,11 @@
-@import "blocks/variables.scss";
-@import "blocks/mixins.scss";
-@import "blocks/normalize.scss";
-@import "blocks/sprite-png.scss";
-@import "blocks/fonts.scss";
+@use "blocks/variables.scss";
+@use "blocks/mixins.scss";
+@use "blocks/normalize.scss";
+@use "blocks/fonts.scss";
 
 // PAGE COMPONENTS
-@import "blocks/header.scss";
-
+@use "blocks/header.scss";
 
 .icon {
-  display: inline-block;
-}
-
-.icon-chrome {
-  @include sprite($chrome);
-
-}
-.icon-placeholder {
-  @include sprite($placeholder);
+	display: inline-block;
 }
